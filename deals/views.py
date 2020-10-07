@@ -9,7 +9,7 @@ def index(request):
 def deals(request):
     if request.method == 'GET':
         obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.deal.list")
-        conexao = funcoes.conectar('bitrix', 'root', 'Luigi3107')
+        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
 
         for a in obj['result']:
@@ -34,7 +34,7 @@ def deals(request):
 def leads(request):
     if request.method == 'GET':
         obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.list")
-        conexao = funcoes.conectar('bitrix', 'root', 'Luigi3107')
+        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
 
         for a in obj['result']:
@@ -58,7 +58,7 @@ def leads(request):
 
 def get_lead(request, id):
     obj = funcoes.consumir_api(f'https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.get?ID={id}')
-    conexao = funcoes.conectar('bitrix', 'root', 'Luigi3107')
+    conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
     cursor = conexao.cursor()
 
     cursor.execute(f"SELECT count(*) FROM leads WHERE ID={obj['result']['ID']};")
@@ -76,7 +76,7 @@ def get_lead(request, id):
 
 def get_deal(request, id):
     obj = funcoes.consumir_api(f'https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.deal.get?ID={id}')
-    conexao = funcoes.conectar('bitrix', 'root', 'Luigi3107')
+    conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
     cursor = conexao.cursor()
 
     cursor.execute(f"SELECT count(*) FROM deals WHERE ID={obj['result']['ID']};")
@@ -93,7 +93,7 @@ def get_deal(request, id):
 
 
 def delete_lead(request, id):
-    conexao = funcoes.conectar('bitrix', 'root', 'Luigi3107')
+    conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
     cursor = conexao.cursor()
 
     cursor.execute(f"DELETE FROM leads WHERE ID={id}")
@@ -104,7 +104,7 @@ def delete_lead(request, id):
 
 
 def delete_deal(request, id):
-    conexao = funcoes.conectar('bitrix', 'root', 'Luigi3107')
+    conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
     cursor = conexao.cursor()
 
     cursor.execute(f"DELETE FROM deals WHERE ID={id}")

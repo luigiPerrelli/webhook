@@ -4,11 +4,13 @@ import json
 
 'bitrix''root''Luigi3107'
 def conectar(database, user, password):
-    return pymysql.connect(db=database, user=user, passwd=password)
+    return pymysql.connect(host='45.77.94.236', db=database, user=user, passwd=password)
+
 
 def consumir_api(url):
     r = requests.get(url)
     return json.loads(r.content)
+
 
 def inserir_leads(a):
     print(f"A ID:{a['ID']} foi INSERIDA")
@@ -22,6 +24,7 @@ def inserir_leads(a):
                     a['STATUS_DESCRIPTION'], a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'],
                     a['DATE_MODIFY'], a['OPPORTUNITY']))
 
+
 def atualizar_leads(a):
     print(f"A ID:{a['ID']} foi ATUALIZADA.")
     return (f"UPDATE leads SET Status='{a['STATUS_ID']}', Nome_do_lead='{a['TITLE']}',"
@@ -30,6 +33,7 @@ def atualizar_leads(a):
             f" Responsável='{a['ASSIGNED_BY_ID']}', Informação_de_status='{a['STATUS_DESCRIPTION']}',"
             f" Informações_da_fonte='{a['SOURCE_DESCRIPTION']}', Criado_por='{a['CREATED_BY_ID']}',"
             f" Modificado='{a['DATE_MODIFY']}', Total='{a['OPPORTUNITY']}' WHERE ID='{a['ID']}'")
+
 
 
 def inserir_deals(a):
@@ -52,6 +56,7 @@ def inserir_deals(a):
                            a['IS_REPEATED_APPROACH'], a['SOURCE_ID'], a['SOURCE_DESCRIPTION'], a['ORIGINATOR_ID'],
                            a['ORIGIN_ID'], a['UTM_SOURCE'], a['UTM_MEDIUM'], a['UTM_CAMPAIGN'], a['UTM_CONTENT'],
                            a['UTM_TERM']))
+
 
 def atualizar_deals(a):
     print(f"A ID:{a['ID']} foi ATUALIZADA.")
@@ -76,14 +81,15 @@ def atualizar_deals(a):
         )
 
 
-
 def deletar(tipo):
     return(f"DELETE FROM {tipo}")
+
 
 def add(tipo, TITLE, TYPE_ID, CONTACT_ID, OPENED, CURRENCY_ID, OPPORTUNITY, ASSIGNED_BY_ID,STAGE_ID):
     consumir_api(
     f"https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.{tipo}.add?fields[TITLE]={TITLE}&fields[TYPE_ID]={TYPE_ID}&fields[CONTACT_ID]={CONTACT_ID}&fields[OPENED]={OPENED}&fields[CURRENCY_ID]={CURRENCY_ID}&fields[OPPORTUNITY]={OPPORTUNITY}&fields[ASSIGNED_BY_ID]={ASSIGNED_BY_ID}&fields[STAGE_ID]:={STAGE_ID}")
     print(f'O {tipo} {TITLE} foi adicionado')
+
 
 def get(tipo):
     ID = str(input('Qual a sua ID? '))
