@@ -79,9 +79,10 @@ WSGI_APPLICATION = 'teste_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bitrix',
-        'USER': 'root',
-        'PASSWORD': 'Luigi3107'
+        'HOST': '45.77.94.236',
+        'NAME': 'testeluigi',
+        'USER': 'l1gu3scPT',
+        'PASSWORD': 'Estmonial!Uhh663913Ty'
     }
 }
 
