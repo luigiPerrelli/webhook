@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import funcoes
-from django.views.decorators.http import require_POST
 
 
 def index(request):
@@ -31,29 +30,30 @@ def deals(request):
         conexao.close()
         return render(request, 'deals.html')
 
-@require_POST
+
 def leads(request):
-    obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.list")
-    conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
-    cursor = conexao.cursor()
+    if request.method == 'GET':
+        obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.list")
+        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        cursor = conexao.cursor()
 
-    for a in obj['result']:
-        cursor.execute(f"SELECT ID FROM leads;")
-        tlinhas = cursor.rowcount
-        if tlinhas > len(obj['result']):
-            cursor.execute(funcoes.deletar('leads'))
+        for a in obj['result']:
+            cursor.execute(f"SELECT ID FROM leads;")
+            tlinhas = cursor.rowcount
+            if tlinhas > len(obj['result']):
+                cursor.execute(funcoes.deletar('leads'))
 
-        cursor.execute(f"SELECT count(*) FROM leads WHERE ID={a['ID']};")
-        linhas = cursor.fetchall()
-        if linhas[0][0] == 0:
-            cursor.execute(funcoes.inserir_leads(a))
+            cursor.execute(f"SELECT count(*) FROM leads WHERE ID={a['ID']};")
+            linhas = cursor.fetchall()
+            if linhas[0][0] == 0:
+                cursor.execute(funcoes.inserir_leads(a))
 
-        else:
-            cursor.execute(funcoes.atualizar_leads(a))
+            else:
+                cursor.execute(funcoes.atualizar_leads(a))
 
-    conexao.commit()
-    conexao.close()
-    return render(request, 'leads.html')
+        conexao.commit()
+        conexao.close()
+        return render(request, 'leads.html')
 
 
 def get_lead(request, id):
@@ -112,3 +112,21 @@ def delete_deal(request, id):
     conexao.commit()
     conexao.close()
     return render(request, 'get.html')
+
+
+import json
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
+
+@csrf_exempt
+@require_POST
+def webhook(request):
+    jsondata = request.body
+    data = json.loads(jsondata)
+    for answer in data['form_response']['answers']: # go through all the answers
+      type = answer['type']
+      print(f'answer: {answer[type]}') # print value of answers
+
+    return HttpResponse(status=200)
