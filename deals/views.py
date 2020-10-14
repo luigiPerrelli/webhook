@@ -118,10 +118,10 @@ import json
 from django.http import HttpResponse, JsonResponse
 
 def webhook(request):
-    data =[]
+    data ={'data':''}
     if request.method == 'POST':
         jsondata = request.body
-        data.append(json.loads(jsondata))
+        data.update({'data': json.loads(jsondata)})
         print(data)
     print(data)
 
