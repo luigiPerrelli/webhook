@@ -125,9 +125,6 @@ from django.views.decorators.http import require_POST
 def webhook(request):
     jsondata = request.body
     data = json.loads(jsondata)
-    for answer in data['form_response']['answers']: # go through all the answers
-      type = answer['type']
-      print(f'answer: {answer[type]}') # print value of answers
 
     obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.list")
     conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
@@ -150,4 +147,4 @@ def webhook(request):
     conexao.commit()
     conexao.close()
 
-    return HttpResponse(status=200)
+    return HttpResponse(f'A resposta foi {data}')
