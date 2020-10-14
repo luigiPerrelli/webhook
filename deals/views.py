@@ -115,36 +115,14 @@ def delete_deal(request, id):
 
 
 import json
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.http import HttpResponse, JsonResponse
 
-
-@csrf_exempt
-@require_POST
 def webhook(request):
-    jsondata = request.body
-    data = json.loads(jsondata)
+    data =[]
+    if request.method == 'POST':
+        jsondata = request.body
+        data.append(json.loads(jsondata))
+        print(data)
+    print(data)
 
-    obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.list")
-    conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
-    cursor = conexao.cursor()
-
-    for a in obj['result']:
-        cursor.execute(f"SELECT ID FROM leads;")
-        tlinhas = cursor.rowcount
-        if tlinhas > len(obj['result']):
-            cursor.execute(funcoes.deletar('leads'))
-
-        cursor.execute(f"SELECT count(*) FROM leads WHERE ID={a['ID']};")
-        linhas = cursor.fetchall()
-        if linhas[0][0] == 0:
-            cursor.execute(funcoes.inserir_leads(a))
-
-        else:
-            cursor.execute(funcoes.atualizar_leads(a))
-
-    conexao.commit()
-    conexao.close()
-
-    return HttpResponse(f'A resposta foi {data}')
+    return JsonResponse(data)
