@@ -150,4 +150,4 @@ def webhook(request):
     conexao.commit()
     conexao.close()
 
-    return HttpResponse(status=200)
+    return HttpResponse('this is the webhook response')
