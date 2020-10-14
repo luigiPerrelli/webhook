@@ -120,7 +120,7 @@ from django.http import HttpResponse, JsonResponse
 def webhook(request):
     data ={'data':''}
     if request.method == 'POST':
-        jsondata = request.body
+        jsondata = request.POST
         data.update({'data': json.loads(jsondata)})
         print(data)
     print(data)
