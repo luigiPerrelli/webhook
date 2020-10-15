@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import funcoes
-
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     return render(request, 'index.html')
@@ -31,6 +31,7 @@ def deals(request):
         return render(request, 'deals.html')
 
 
+@csrf_exempt
 def leads(request):
     if request.method == 'POST':
         obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.list")
