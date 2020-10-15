@@ -32,7 +32,7 @@ def deals(request):
 
 
 def leads(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         obj = funcoes.consumir_api("https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.list")
         conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
@@ -112,17 +112,3 @@ def delete_deal(request, id):
     conexao.commit()
     conexao.close()
     return render(request, 'get.html')
-
-
-import json
-from django.http import HttpResponse, JsonResponse
-
-def webhook(request):
-    data ={'data':''}
-    if request.method == 'POST':
-        jsondata = request.POST
-        data.update({'data': json.loads(jsondata)})
-        print(data)
-    print(data)
-
-    return JsonResponse(data)
