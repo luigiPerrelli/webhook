@@ -54,6 +54,7 @@ def leads(request):
 
         conexao.commit()
         conexao.close()
+        print(request.POST.items())
         return render(request, 'leads.html')
 
 
