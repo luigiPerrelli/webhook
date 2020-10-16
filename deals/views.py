@@ -58,22 +58,25 @@ def leads(request):
         return render(request, 'leads.html')
 
 
-def get_lead(request, id):
-    obj = funcoes.consumir_api(f'https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.get?ID={id}')
-    conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
-    cursor = conexao.cursor()
+@csrf_exempt
+def get_lead(request):
+    if request.method == 'POST':
+        id = request.POST['data[FIELDS][ID]']
+        obj = funcoes.consumir_api(f'https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.get?ID={id}')
+        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        cursor = conexao.cursor()
 
-    cursor.execute(f"SELECT count(*) FROM leads WHERE ID={obj['result']['ID']};")
-    linhas = cursor.fetchall()
-    if linhas[0][0] == 0:
-        cursor.execute(funcoes.inserir_leads(obj['result']))
+        cursor.execute(f"SELECT count(*) FROM leads WHERE ID={obj['result']['ID']};")
+        linhas = cursor.fetchall()
+        if linhas[0][0] == 0:
+            cursor.execute(funcoes.inserir_leads(obj['result']))
 
-    else:
-        cursor.execute(funcoes.atualizar_leads(obj['result']))
+        else:
+            cursor.execute(funcoes.atualizar_leads(obj['result']))
 
-    conexao.commit()
-    conexao.close()
-    return render(request, 'get.html')
+        conexao.commit()
+        conexao.close()
+        return render(request, 'get.html')
 
 
 def get_deal(request, id):
