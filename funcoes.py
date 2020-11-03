@@ -14,7 +14,9 @@ def consumir_api(url):
 
 def inserir_leads(a):
     print(f"A ID:{a['ID']} foi INSERIDA")
-    if len(a['UF_CRM_1594415348970']) == 1:
+    if not a['UF_CRM_1594415348970']:
+        CODIGO_PRODUTO = ''
+    elif len(a['UF_CRM_1594415348970']) == 1:
         CODIGO_PRODUTO = a['UF_CRM_1594415348970'][0]
     else:
         CODIGO_PRODUTO = ''
@@ -35,8 +37,9 @@ def inserir_leads(a):
 
 
 def atualizar_leads(a):
-    print(f"A ID:{a['ID']} foi ATUALIZADA.")
-    if len(a['UF_CRM_1594415348970']) == 1:
+    if not a['UF_CRM_1594415348970']:
+        CODIGO_PRODUTO = ''
+    elif len(a['UF_CRM_1594415348970']) == 1:
         CODIGO_PRODUTO = a['UF_CRM_1594415348970'][0]
     else:
         CODIGO_PRODUTO = ''
