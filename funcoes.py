@@ -14,6 +14,10 @@ def consumir_api(url):
 
 def inserir_leads(a):
     print(f"A ID:{a['ID']} foi INSERIDA")
+    if len(a['UF_CRM_1594415348970']) == 1:
+        CODIGO_PRODUTO = a['UF_CRM_1594415348970'][0]
+    else:
+        CODIGO_PRODUTO = ''
     return ("INSERT INTO LEAD (ID, Status, Nome_do_Lead, Primeiro_nome, Segundo_nome, Sobrenome, Criado,"
             "Fonte ,Telefone_de_trabalho, Responsável, Informações_de_status,"
             "Informações_da_fonte, Criado_por, Modificado, Modificado_Por, Nome_da_empresa,"
@@ -21,27 +25,36 @@ def inserir_leads(a):
             "MOTIVO_DAS_INTERAÇÕES, MOTIVO_NÃO_VENDA, CÓDIGO_DO_PRODUTO, OBSERVAÇÃO_NÃO_VENDA, Estado_UF)"
             "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',"
             "        '{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}', '{}')"
-            .format(a['ID'], a['STATUS_ID'], a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
-                    a['SOURCE_ID'], a['PHONE'][0]['VALUE'],a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
-                    a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'],a['MODIFY_BY_ID'], a['COMPANY_ID'],
-                    a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'], a['UF_CRM_1590010371392'],
-                    a['UF_CRM_1590574186777'], a['UF_CRM_1590574245657'], a['UF_CRM_1594415348970'][0], a['UF_CRM_1594415383097'], a['UF_CRM_1598647901']))
+            .format(a['ID'], a['STATUS_ID'], a['TITLE'], a['NAME'], a['SECOND_NAME'], a['LAST_NAME'], a['DATE_CREATE'],
+                    a['SOURCE_ID'], a['PHONE'][0]['VALUE'], a['ASSIGNED_BY_ID'], a['STATUS_DESCRIPTION'],
+                    a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'], a['MODIFY_BY_ID'], a['COMPANY_ID'],
+                    a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'],
+                    a['UF_CRM_1590010371392'],
+                    a['UF_CRM_1590574186777'], a['UF_CRM_1590574245657'], CODIGO_PRODUTO, a['UF_CRM_1594415383097'],
+                    a['UF_CRM_1598647901']))
 
 
 def atualizar_leads(a):
     print(f"A ID:{a['ID']} foi ATUALIZADA.")
-    return ("UPDATE LEAD SET Status='{}', Nome_do_lead='{}', Primeiro_nome='{}', Segundo_nome='{}', Sobrenome='{}', Criado='{}',"
-            "Fonte='{}',Telefone_de_trabalho='{}', Responsável='{}', Informações_de_status='{}',"
-            "Informações_da_fonte='{}', Criado_por='{}', Modificado='{}', Modificado_Por='{}', Nome_da_empresa='{}',"
-            "Lead_repetido='{}', CIDADE_TELEVENDAS='{}', Data_de_Conversão='{}', Forma_de_Pagamento='{}', Número_do_pedido_Winthor='{}',"
-            "MOTIVO_DAS_INTERAÇÕES='{}', MOTIVO_NÃO_VENDA='{}', CÓDIGO_DO_PRODUTO='{}', OBSERVAÇÃO_NÃO_VENDA='{}', Estado_UF='{}'"
-            "WHERE ID ='{}'"
-            .format(a['ID'], a['STATUS_ID'], a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
-                    a['SOURCE_ID'], a['PHONE'][0]['VALUE'], a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
-                    a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'],a['MODIFY_BY_ID'], a['COMPANY_ID'],
-                    a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'], a['UF_CRM_1590010371392'],
-                    a['UF_CRM_1590574186777'], a['UF_CRM_1590574245657'], a['UF_CRM_1594415348970'][0], a['UF_CRM_1594415383097'], a['UF_CRM_1598647901'],
-                    a['ID']))
+    if len(a['UF_CRM_1594415348970']) == 1:
+        CODIGO_PRODUTO = a['UF_CRM_1594415348970'][0]
+    else:
+        CODIGO_PRODUTO = ''
+    return (
+        "UPDATE LEAD SET Status='{}', Nome_do_lead='{}', Primeiro_nome='{}', Segundo_nome='{}', Sobrenome='{}', Criado='{}',"
+        "Fonte='{}',Telefone_de_trabalho='{}', Responsável='{}', Informações_de_status='{}',"
+        "Informações_da_fonte='{}', Criado_por='{}', Modificado='{}', Modificado_Por='{}', Nome_da_empresa='{}',"
+        "Lead_repetido='{}', CIDADE_TELEVENDAS='{}', Data_de_Conversão='{}', Forma_de_Pagamento='{}', Número_do_pedido_Winthor='{}',"
+        "MOTIVO_DAS_INTERAÇÕES='{}', MOTIVO_NÃO_VENDA='{}', CÓDIGO_DO_PRODUTO='{}', OBSERVAÇÃO_NÃO_VENDA='{}', Estado_UF='{}'"
+        "WHERE ID ='{}'"
+        .format(a['ID'], a['STATUS_ID'], a['TITLE'], a['NAME'], a['SECOND_NAME'], a['LAST_NAME'], a['DATE_CREATE'],
+                a['SOURCE_ID'], a['PHONE'][0]['VALUE'], a['ASSIGNED_BY_ID'], a['STATUS_DESCRIPTION'],
+                a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'], a['MODIFY_BY_ID'], a['COMPANY_ID'],
+                a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'],
+                a['UF_CRM_1590010371392'],
+                a['UF_CRM_1590574186777'], a['UF_CRM_1590574245657'], CODIGO_PRODUTO, a['UF_CRM_1594415383097'],
+                a['UF_CRM_1598647901'],
+                a['ID']))
 
 
 def inserir_deals(a):
