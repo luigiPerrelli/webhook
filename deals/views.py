@@ -59,8 +59,8 @@ def leads(request):
 def get_lead(request):
     if request.method == 'POST':
         id = request.POST['data[FIELDS][ID]']
-        obj = funcoes.consumir_api(f'https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.lead.get?ID={id}')
-        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        obj = funcoes.consumir_api(f'https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.lead.get?ID={id}')
+        conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
 
         cursor.execute(f"SELECT count(*) FROM leads WHERE ID={obj['result']['ID']};")
