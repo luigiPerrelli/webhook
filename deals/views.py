@@ -63,7 +63,7 @@ def get_lead(request):
         conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
 
-        cursor.execute(f"SELECT count(*) FROM leads WHERE ID={obj['result']['ID']};")
+        cursor.execute(f"SELECT count(*) FROM LEAD WHERE ID={obj['result']['ID']};")
         linhas = cursor.fetchall()
         if linhas[0][0] == 0:
             cursor.execute(funcoes.inserir_leads(obj['result']))
