@@ -62,47 +62,122 @@ def atualizar_leads(a):
 
 def inserir_deals(a):
     print(f"A ID:{a['ID']} foi INSERIDA.")
-    return("INSERT INTO deals (ID, TITLE, TYPE_ID, STAGE_ID, PROBABILITY, CURRENCY_ID, OPPORTUNITY, "
-                   "IS_MANUAL_OPPORTUNITY, TAX_VALUE, LEAD_ID, COMPANY_ID, CONTACT_ID, QUOTE_ID, BEGINDATE, CLOSEDATE, "
-                   "ASSIGNED_BY_ID, CREATED_BY_ID, MODIFY_BY_ID, DATE_CREATE, DATE_MODIFY, OPENED, CLOSED, COMMENTS,"
-                   "ADDITIONAL_INFO, LOCATION_ID, CATEGORY_ID, STAGE_SEMANTIC_ID, IS_NEW, IS_RECURRING,"
-                   "IS_RETURN_CUSTOMER, IS_REPEATED_APPROACH, SOURCE_ID, SOURCE_DESCRIPTION,"
-                   "ORIGINATOR_ID, ORIGIN_ID, UTM_SOURCE, UTM_MEDIUM, UTM_CAMPAIGN, UTM_CONTENT, UTM_TERM)"
-                   "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',"
-                   "'{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',"
-                   "'{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"
-                   .format(a['ID'], a['TITLE'], a['TYPE_ID'], a['STAGE_ID'], a['PROBABILITY'], a['CURRENCY_ID'],
-                           a['OPPORTUNITY'], a['IS_MANUAL_OPPORTUNITY'], a['TAX_VALUE'], a['LEAD_ID'], a['COMPANY_ID'],
-                           a['CONTACT_ID'], a['QUOTE_ID'], a['BEGINDATE'], a['CLOSEDATE'], a['ASSIGNED_BY_ID'],
-                           a['CREATED_BY_ID'], a['MODIFY_BY_ID'], a['DATE_CREATE'], a['DATE_MODIFY'], a['OPENED'],
-                           a['CLOSED'], a['COMMENTS'], a['ADDITIONAL_INFO'], a['LOCATION_ID'], a['CATEGORY_ID'],
-                           a['STAGE_SEMANTIC_ID'], a['IS_NEW'], a['IS_RECURRING'], a['IS_RETURN_CUSTOMER'],
-                           a['IS_REPEATED_APPROACH'], a['SOURCE_ID'], a['SOURCE_DESCRIPTION'], a['ORIGINATOR_ID'],
-                           a['ORIGIN_ID'], a['UTM_SOURCE'], a['UTM_MEDIUM'], a['UTM_CAMPAIGN'], a['UTM_CONTENT'],
-                           a['UTM_TERM']))
+    return("INSERT INTO DEAL (ID, Pipeline, Negócio_repetido, Fase,"
+           "Responsável, Nome_do_negócio, Tipo, Fonte, Empresa, Contato, Fechado,"
+           "Criado, Criado_por, Modificado, Modificado_por, Data_de_início, Data_de_fechamento,"
+           "Classificação, OCORRÊNCIA_SAC, Motivo_da_Conclusão, Loja_Ocorrência,"
+           "Televendas_Ativo, Televendas_Receptivo, Ocorrências_SAC, OCORRÊNCIA_DE_ENTREGA,"
+           "Data_Atual, Prazo_Final, Vendedor_de_Loja, Motorista,"
+           "Placa_do_Veículo, Rota, Depto_de_Abertura, Depto_de_Tratamento, Código_Winthor,"
+           "Confimado, Instagram, Data_de_Conclusão, Ocorrências_Mídias_Sociais,"
+           "Rede_Social, Classificação_da_ocorrência, Data_da_Entrega, Cidade_do_Cliente,"
+           "CIDADE_TELEVENDAS, Data_de_Conversão, Forma_de_Pagamento, Número_do_pedido_Winthor,"
+           "MOTIVO_DAS_INTERAÇÕES, MOTIVO_NÃO_VENDA, CÓDIGO_DO_PRODUTO, OBSERVAÇÃO_NÃO_VENDA,"
+           "Cobrança_Data_de_Emissão, Cobrança_Data_de_Vencimento, Cobrança_Título, Cobrança_Valor,"
+           "Cobrança_Nota_Fiscal,	Cobrança_Nosso_número,CONF_DE_ENTREGA_CARD_NA_LOGÍSTICA,Card_Na_Logística_conf_de_entrega,"
+           "Concluído_com_atraso, Estado_UF,Ticket_Atrasado,OCORRÊNCIA_DISTAC,DISTAC_FILIAL,Abertura_Tratamento,"
+           "Classificação_SLA_Nome, Redes_Sociais)"
+           "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"
+           .format(a['ID'],a['CATEGORY_ID'],a['IS_RETURN_CUSTOMER'],a['STAGE_ID'],
+                   a['ASSIGNED_BY_ID'], a['TITLE'], a['TYPE_ID'], a['SOURCE_ID'], a['COMPANY_ID'], a['CONTACT_ID'], a['CLOSED'],
+                   a['DATE_CREATE'], a['CREATED_BY_ID'], a['DATE_MODIFY'], a['MODIFY_BY_ID'], a['BEGINDATE'], a['CLOSEDATE'],
+                   a['UF_CRM_1571064926633'], a['UF_CRM_1571065370'], a['UF_CRM_1571419048387'], a['UF_CRM_1571660434'],
+                   a['UF_CRM_1571663098'], a['UF_CRM_1571663163'], a['UF_CRM_1571663163'], a['UF_CRM_1571753310'],
+                   a['UF_CRM_1572011497'], a['UF_CRM_1572011511'], a['UF_CRM_1572178570710'], a['UF_CRM_1572178642890'],
+                   a['UF_CRM_1572178677879'], a['UF_CRM_1572178700297'], a['UF_CRM_1572626106833'], a['UF_CRM_1572626118761'], a['UF_CRM_1574777642618'],
+                   a['UF_CRM_1575040109633'], a['UF_CRM_5DE944CD9BDB5'], a['UF_CRM_1576071656406'], a['UF_CRM_1579203250'],
+                   a['UF_CRM_1579266030'], a['UF_CRM_1580234661'], a['UF_CRM_1581104112'], a['UF_CRM_1585343891815'],
+                   a['UF_CRM_5E814A250C7FB'], a['UF_CRM_5EBEAF2E30554'], a['UF_CRM_5EC53E5E99FFC'], a['UF_CRM_5EC5A242017C1'],
+                   a['UF_CRM_5ECE44E3E51A4'], a['UF_CRM_5ECE44E453B0B'], a['UF_CRM_5F08D998E3B9E'], a['UF_CRM_5F08D999674A7'],
+                   a['UF_CRM_1596064001'], a['UF_CRM_1596064018'], a['UF_CRM_1596064032'], a['UF_CRM_1596064046'],
+                   a['UF_CRM_1596064059'], a['UF_CRM_1596064076'], a['UF_CRM_1597428965747'], a['UF_CRM_1597429005013'],
+                   a['UF_CRM_1597762728735'], a['UF_CRM_5F497054E2F3D'], a['UF_CRM_1600088578763'], a['UF_CRM_1603812306'], a['UF_CRM_1603910365'], a['UF_CRM_1572626118761'],
+                   a['UF_CRM_1571064926633'],a['UF_CRM_1579266030']))
 
 
 def atualizar_deals(a):
     print(f"A ID:{a['ID']} foi ATUALIZADA.")
     return(
-        "UPDATE deals SET TITLE='{}', TYPE_ID='{}', STAGE_ID='{}', PROBABILITY='{}', CURRENCY_ID='{}', OPPORTUNITY='{}',"
-        "IS_MANUAL_OPPORTUNITY='{}', TAX_VALUE='{}', LEAD_ID='{}', COMPANY_ID='{}', CONTACT_ID='{}', QUOTE_ID='{}', BEGINDATE='{}', CLOSEDATE='{}', "
-        "ASSIGNED_BY_ID='{}', CREATED_BY_ID='{}', MODIFY_BY_ID='{}', DATE_CREATE='{}', DATE_MODIFY='{}', OPENED='{}', CLOSED='{}', COMMENTS='{}',"
-        "ADDITIONAL_INFO='{}', LOCATION_ID='{}', CATEGORY_ID='{}', STAGE_SEMANTIC_ID='{}', IS_NEW='{}', IS_RECURRING='{}',"
-        "IS_RETURN_CUSTOMER='{}', IS_REPEATED_APPROACH='{}', SOURCE_ID='{}', SOURCE_DESCRIPTION='{}',"
-        "ORIGINATOR_ID='{}', ORIGIN_ID='{}', UTM_SOURCE='{}', UTM_MEDIUM='{}', UTM_CAMPAIGN='{}', UTM_CONTENT='{}', UTM_TERM='{}'"
+        "UPDATE DEAL SET Pipeline='{}', Negócio_repetido='{}', Fase='{}',"
+        "Responsável='{}', Nome_do_negócio='{}', Tipo='{}', Fonte='{}', Empresa='{}', Contato='{}', Fechado='{}',"
+        "Criado='{}', Criado_por='{}', Modificado='{}', Modificado_por='{}', Data_de_início='{}', Data_de_fechamento='{}',"
+        "Classificação='{}', OCORRÊNCIA_SAC='{}', Motivo_da_Conclusão='{}', Loja_Ocorrência='{}',"
+        "Televendas_Ativo='{}', Televendas_Receptivo='{}', Ocorrências_SAC='{}', OCORRÊNCIA_DE_ENTREGA='{}',"
+        "Data_Atual='{}', Prazo_Final='{}', Vendedor_de_Loja='{}', Motorista='{}',"
+        "Placa_do_Veículo='{}', Rota='{}', Depto_de_Abertura='{}', Depto_de_Tratamento='{}', Código_Winthor='{}',"
+        "Confimado='{}', Instagram='{}', Data_de_Conclusão='{}', Ocorrências_Mídias_Sociais='{}',"
+        "Rede_Social='{}', Classificação_da_ocorrência='{}', Data_da_Entrega='{}', Cidade_do_Cliente='{}',"
+        "CIDADE_TELEVENDAS='{}', Data_de_Conversão='{}', Forma_de_Pagamento='{}', Número_do_pedido_Winthor='{}',"
+        "MOTIVO_DAS_INTERAÇÕES='{}', MOTIVO_NÃO_VENDA='{}', CÓDIGO_DO_PRODUTO='{}', OBSERVAÇÃO_NÃO_VENDA='{}',"
+        "Cobrança_Data_de_Emissão='{}', Cobrança_Data_de_Vencimento='{}', Cobrança_Título='{}', Cobrança_Valor='{}',"
+        "Cobrança_Nota_Fiscal='{}',Cobrança_Nosso_número='{}',CONF_DE_ENTREGA_CARD_NA_LOGÍSTICA='{}',Card_Na_Logística_conf_de_entrega='{}',"
+        "Concluído_com_atraso='{}', Estado_UF='{}',Ticket_Atrasado='{}',OCORRÊNCIA_DISTAC='{}',DISTAC_FILIAL='{}',Abertura_Tratamento='{}',"
+        "Classificação_SLA_Nome='{}',Redes_Sociais='{}'"
         " WHERE ID='{}'"
-        .format(a['TITLE'], a['TYPE_ID'], a['STAGE_ID'], a['PROBABILITY'], a['CURRENCY_ID'],
-                a['OPPORTUNITY'], a['IS_MANUAL_OPPORTUNITY'], a['TAX_VALUE'], a['LEAD_ID'],
-                a['COMPANY_ID'],
-                a['CONTACT_ID'], a['QUOTE_ID'], a['BEGINDATE'], a['CLOSEDATE'], a['ASSIGNED_BY_ID'],
-                a['CREATED_BY_ID'], a['MODIFY_BY_ID'], a['DATE_CREATE'], a['DATE_MODIFY'], a['OPENED'],
-                a['CLOSED'], a['COMMENTS'], a['ADDITIONAL_INFO'], a['LOCATION_ID'], a['CATEGORY_ID'],
-                a['STAGE_SEMANTIC_ID'], a['IS_NEW'], a['IS_RECURRING'], a['IS_RETURN_CUSTOMER'],
-                a['IS_REPEATED_APPROACH'], a['SOURCE_ID'], a['SOURCE_DESCRIPTION'], a['ORIGINATOR_ID'],
-                a['ORIGIN_ID'], a['UTM_SOURCE'], a['UTM_MEDIUM'], a['UTM_CAMPAIGN'], a['UTM_CONTENT'],
-                a['UTM_TERM'], a['ID'])
+        .format(a['CATEGORY_ID'],a['IS_RETURN_CUSTOMER'],a['STAGE_ID'],
+                   a['ASSIGNED_BY_ID'], a['TITLE'], a['TYPE_ID'], a['SOURCE_ID'], a['COMPANY_ID'], a['CONTACT_ID'], a['CLOSED'],
+                   a['DATE_CREATE'], a['CREATED_BY_ID'], a['DATE_MODIFY'], a['MODIFY_BY_ID'], a['BEGINDATE'], a['CLOSEDATE'],
+                   a['UF_CRM_1571064926633'], a['UF_CRM_1571065370'], a['UF_CRM_1571419048387'], a['UF_CRM_1571660434'],
+                   a['UF_CRM_1571663098'], a['UF_CRM_1571663163'], a['UF_CRM_1571663163'], a['UF_CRM_1571753310'],
+                   a['UF_CRM_1572011497'], a['UF_CRM_1572011511'], a['UF_CRM_1572178570710'], a['UF_CRM_1572178642890'],
+                   a['UF_CRM_1572178677879'], a['UF_CRM_1572178700297'], a['UF_CRM_1572626106833'], a['UF_CRM_1572626118761'], a['UF_CRM_1574777642618'],
+                   a['UF_CRM_1575040109633'], a['UF_CRM_5DE944CD9BDB5'], a['UF_CRM_1576071656406'], a['UF_CRM_1579203250'],
+                   a['UF_CRM_1579266030'], a['UF_CRM_1580234661'], a['UF_CRM_1581104112'], a['UF_CRM_1585343891815'],
+                   a['UF_CRM_5E814A250C7FB'], a['UF_CRM_5EBEAF2E30554'], a['UF_CRM_5EC53E5E99FFC'], a['UF_CRM_5EC5A242017C1'],
+                   a['UF_CRM_5ECE44E3E51A4'], a['UF_CRM_5ECE44E453B0B'], a['UF_CRM_5F08D998E3B9E'], a['UF_CRM_5F08D999674A7'],
+                   a['UF_CRM_1596064001'], a['UF_CRM_1596064018'], a['UF_CRM_1596064032'], a['UF_CRM_1596064046'],
+                   a['UF_CRM_1596064059'], a['UF_CRM_1596064076'], a['UF_CRM_1597428965747'], a['UF_CRM_1597429005013'],
+                   a['UF_CRM_1597762728735'], a['UF_CRM_5F497054E2F3D'], a['UF_CRM_1600088578763'], a['UF_CRM_1603812306'], a['UF_CRM_1603910365'], a['UF_CRM_1572626118761'],
+                   a['UF_CRM_1571064926633'],a['UF_CRM_1579266030'],
+                   a['ID'])
         )
+
+
+def inserir_contato(a):
+    print(f"A ID:{a['ID']} foi INSERIDA.")
+    sobrenome = f'{a["SECOND_NAME"]} {a["LAST_NAME"]}'
+    return ("INSERT INTO CONTACT (ID, Nome,Sobrenome,Tipo_de_Contato,Responsável,Telefone_de_trabalho,"
+            "Email_de_trabalho,Fonte,Exportar,Criado_por,Criado,Modificado_por,	Modificado,"
+            "Código_Winthor,	CPF,Endereço_google,Data_Cadastro,Data_1a_Compra,Data_Ult_Compra,	Rua,"
+            "Número,	Complemento,Bairro,	Cidade,	Estado,	CEP,CIDADE_TELEVENDAS,Data_de_Conversão,Forma_de_Pagamento,"
+            "Número_do_pedido_Winthor,	MOTIVO_DAS_INTERAÇÕES,MOTIVO_NÃO_VENDA,	CÓDIGO_DO_PRODUTO,OBSERVAÇÃO_NÃO_VENDA,"
+            "Estado_UF)"
+            "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',"
+            " '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',"
+            " '{}', '{}')"
+            .format(a['ID'], a['NAME'], sobrenome, a['TYPE_ID'], a['ASSIGNED_BY_ID'], a['PHONE'][0]['VALUE'],
+                    a['HAS_EMAIL'], a['SOURCE_ID'], a['EXPORT'], a['CREATED_BY_ID'], a['DATE_CREATE'],
+                    a['MODIFY_BY_ID'],
+                    a['DATE_MODIFY'], a['UF_CRM_1571660034'], a['UF_CRM_1571691442204'], a['UF_CRM_1572279163418'],
+                    a['UF_CRM_1572280054175'], a['UF_CRM_1572280080310'], a['UF_CRM_1572280097701'],
+                    a['UF_CRM_1572284963545'],
+                    a['UF_CRM_1572284981193'], a['UF_CRM_1572285018856'], a['UF_CRM_1572285028298'],
+                    a['UF_CRM_1572285037562'],
+                    a['UF_CRM_1572285047931'], a['UF_CRM_1572285192873'], a['UF_CRM_5E814AF4A68D2'],
+                    a['UF_CRM_5EBEAF2E84C2C'],
+                    a['UF_CRM_5EC53E5D4F128'], a['UF_CRM_5EC5A2424333E'], a['UF_CRM_5ED68EB48F5EF'],
+                    a['UF_CRM_5ED68EB6DE8FF'],
+                    a['UF_CRM_5ED68EB6DE8FF'], a['UF_CRM_5F49704F94C18'], a['UF_CRM_5F497051EF70D']))
+
+
+def atualizar_contato(a):
+    print(f"A ID:{a['ID']} foi ATUALIZADA.")
+    sobrenome = f'{a["SECOND_NAME"]} {a["LAST_NAME"]}'
+    return("UPDATE CONTACT SET Nome='{}',Sobrenome='{}',Tipo_de_Contato='{}',Responsável='{}',Telefone_de_trabalho='{}',"
+           "Email_de_trabalho='{}',Fonte='{}',Exportar='{}',Criado_por='{}',Criado='{}',Modificado_por='{}',Modificado='{}',"
+           "Código_Winthor='{}',CPF='{}',Endereço_google='{}',Data_Cadastro='{}',Data_1a_Compra='{}',Data_Ult_Compra='{}',	Rua='{}',"
+           "Número='{}',Complemento='{}',Bairro='{}',Cidade='{}',Estado='{}',CEP='{}',CIDADE_TELEVENDAS='{}',Data_de_Conversão='{}',Forma_de_Pagamento='{}',"
+           "Número_do_pedido_Winthor='{}',MOTIVO_DAS_INTERAÇÕES='{}',MOTIVO_NÃO_VENDA='{}',CÓDIGO_DO_PRODUTO='{}',OBSERVAÇÃO_NÃO_VENDA='{}',"
+           "Estado_UF='{}'"
+           " WHERE ID='{}'"
+           .format(a['NAME'], sobrenome, a['TYPE_ID'], a['ASSIGNED_BY_ID'], a['PHONE'][0]['VALUE'],
+                   a['HAS_EMAIL'], a['SOURCE_ID'], a['EXPORT'], a['CREATED_BY_ID'], a['DATE_CREATE'], a['MODIFY_BY_ID'],
+                   a['DATE_MODIFY'],a['UF_CRM_1571660034'], a['UF_CRM_1571691442204'], a['UF_CRM_1572279163418'],
+                   a['UF_CRM_1572280054175'], a['UF_CRM_1572280080310'], a['UF_CRM_1572280097701'], a['UF_CRM_1572284963545'],
+                   a['UF_CRM_1572284981193'], a['UF_CRM_1572285018856'], a['UF_CRM_1572285028298'], a['UF_CRM_1572285037562'],
+                   a['UF_CRM_1572285047931'], a['UF_CRM_1572285192873'], a['UF_CRM_5E814AF4A68D2'], a['UF_CRM_5EBEAF2E84C2C'],
+                   a['UF_CRM_5EC53E5D4F128'],a['UF_CRM_5EC5A2424333E'], a['UF_CRM_5ED68EB48F5EF'], a['UF_CRM_5ED68EB6DE8FF'],
+                   a['UF_CRM_5ED68EB6DE8FF'], a['UF_CRM_5F49704F94C18'],a['UF_CRM_5F497051EF70D'], a['ID']))
 
 
 def deletar(tipo):

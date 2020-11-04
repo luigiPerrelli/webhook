@@ -80,11 +80,11 @@ def get_lead(request):
 def get_deal(request):
     if request.method == 'POST':
         id = request.POST['data[FIELDS][ID]']
-        obj = funcoes.consumir_api(f'https://staffmobi.bitrix24.com/rest/1/a69xicp1xnmi8ope/crm.deal.get?ID={id}')
-        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        obj = funcoes.consumir_api(f'https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.deal.get?ID={id}')
+        conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
 
-        cursor.execute(f"SELECT count(*) FROM deals WHERE ID={obj['result']['ID']};")
+        cursor.execute(f"SELECT count(*) FROM DEAL WHERE ID={obj['result']['ID']};")
         linhas = cursor.fetchall()
         if linhas[0][0] == 0:
             cursor.execute(funcoes.inserir_deals(obj['result']))
@@ -98,13 +98,34 @@ def get_deal(request):
 
 
 @csrf_exempt
+def get_contact(request):
+    if request.method == 'POST':
+        id = request.POST['data[FIELDS][ID]']
+        obj = funcoes.consumir_api(f'https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.contact.get?ID={id}')
+        conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        cursor = conexao.cursor()
+
+        cursor.execute(f"SELECT count(*) FROM CONTACT WHERE ID={obj['result']['ID']};")
+        linhas = cursor.fetchall()
+        if linhas[0][0] == 0:
+            cursor.execute(funcoes.inserir_contato(obj['result']))
+
+        else:
+            cursor.execute(funcoes.atualizar_contato(obj['result']))
+
+        conexao.commit()
+        conexao.close()
+        return render(request, 'get.html')
+
+
+@csrf_exempt
 def delete_lead(request):
     if request.method == 'POST':
         id = request.POST['data[FIELDS][ID]']
-        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
 
-        cursor.execute(f"DELETE FROM leads WHERE ID={id}")
+        cursor.execute(f"DELETE FROM LEAD WHERE ID={id}")
 
         conexao.commit()
         conexao.close()
@@ -115,10 +136,24 @@ def delete_lead(request):
 def delete_deal(request):
     if request.method == 'POST':
         id = request.POST['data[FIELDS][ID]']
-        conexao = funcoes.conectar('testeluigi', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
         cursor = conexao.cursor()
 
-        cursor.execute(f"DELETE FROM deals WHERE ID={id}")
+        cursor.execute(f"DELETE FROM DEAL WHERE ID={id}")
+
+        conexao.commit()
+        conexao.close()
+        return render(request, 'get.html')
+
+
+@csrf_exempt
+def delete_contact(request):
+    if request.method == 'POST':
+        id = request.POST['data[FIELDS][ID]']
+        conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+        cursor = conexao.cursor()
+
+        cursor.execute(f"DELETE FROM CONTACT WHERE ID={id}")
 
         conexao.commit()
         conexao.close()
