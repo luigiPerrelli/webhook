@@ -19,11 +19,27 @@ def inserir_leads(a):
     elif len(a['UF_CRM_1594415348970']) == 1:
         CODIGO_PRODUTO = a['UF_CRM_1594415348970'][0]
     else:
+
         CODIGO_PRODUTO = ''
     if a['HAS_PHONE'] == 'Y':
         telefone = a['PHONE'][0]['VALUE']
     else:
         telefone = ''
+
+    if a['STATUS_ID'] == 'JUNK':
+        status = '5 Contatos Perdidos'
+    elif a['STATUS_ID'] == 'CONVERTED':
+        status = '6 Venda Realizada'
+    elif a['STATUS_ID'] == 'NEW':
+        status = '1 Início'
+    elif a['STATUS_ID'] == '3':
+        status = '4 Em Negociação'
+    elif a['STATUS_ID'] == '4':
+        status = '2 Fora De Horario'
+    elif a['STATUS_ID'] == '5':
+        status = '3 Em Atendimento'
+    else:
+        status = ''
     return ("INSERT INTO LEAD (ID, Status, Nome_do_Lead, Primeiro_nome, Segundo_nome, Sobrenome, Criado,"
             "Fonte ,Telefone_de_trabalho, Responsável, Informações_de_status,"
             "Informações_da_fonte, Criado_por, Modificado, Modificado_Por, Nome_da_empresa,"
@@ -31,7 +47,7 @@ def inserir_leads(a):
             "MOTIVO_DAS_INTERAÇÕES, MOTIVO_NÃO_VENDA, CÓDIGO_DO_PRODUTO, OBSERVAÇÃO_NÃO_VENDA, Estado_UF)"
             "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',"
             "        '{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}', '{}')"
-            .format(a['ID'], a['STATUS_ID'], a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
+            .format(a['ID'], status, a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
                     a['SOURCE_ID'], telefone,a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
                     a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'],a['MODIFY_BY_ID'], a['COMPANY_ID'],
                     a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'], a['UF_CRM_1590010371392'],
@@ -50,13 +66,27 @@ def atualizar_leads(a):
         telefone = a['PHONE'][0]['VALUE']
     else:
         telefone = ''
+    if a['STATUS_ID'] == 'JUNK':
+        status = '5 Contatos Perdidos'
+    elif a['STATUS_ID'] == 'CONVERTED':
+        status = '6 Venda Realizada'
+    elif a['STATUS_ID'] == 'NEW':
+        status = '1 Início'
+    elif a['STATUS_ID'] == '3':
+        status = '4 Em Negociação'
+    elif a['STATUS_ID'] == '4':
+        status = '2 Fora De Horario'
+    elif a['STATUS_ID'] == '5':
+        status = '3 Em Atendimento'
+    else:
+        status = ''
     return ("UPDATE LEAD SET Status='{}', Nome_do_lead='{}', Primeiro_nome='{}', Segundo_nome='{}', Sobrenome='{}', Criado='{}',"
             "Fonte='{}',Telefone_de_trabalho='{}', Responsável='{}', Informações_de_status='{}',"
             "Informações_da_fonte='{}', Criado_por='{}', Modificado='{}', Modificado_Por='{}', Nome_da_empresa='{}',"
             "Lead_repetido='{}', CIDADE_TELEVENDAS='{}', Data_de_Conversão='{}', Forma_de_Pagamento='{}', Número_do_pedido_Winthor='{}',"
             "MOTIVO_DAS_INTERAÇÕES='{}', MOTIVO_NÃO_VENDA='{}', CÓDIGO_DO_PRODUTO='{}', OBSERVAÇÃO_NÃO_VENDA='{}', Estado_UF='{}'"
             "WHERE ID ='{}'"
-            .format(a['ID'], a['STATUS_ID'], a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
+            .format(status, a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
                     a['SOURCE_ID'], telefone, a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
                     a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'],a['MODIFY_BY_ID'], a['COMPANY_ID'],
                     a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'], a['UF_CRM_1590010371392'],
