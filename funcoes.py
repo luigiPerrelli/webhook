@@ -19,27 +19,104 @@ def inserir_leads(a):
     elif len(a['UF_CRM_1594415348970']) == 1:
         CODIGO_PRODUTO = a['UF_CRM_1594415348970'][0]
     else:
-
         CODIGO_PRODUTO = ''
+
     if a['HAS_PHONE'] == 'Y':
         telefone = a['PHONE'][0]['VALUE']
     else:
         telefone = ''
 
-    if a['STATUS_ID'] == 'JUNK':
-        status = '5 Contatos Perdidos'
-    elif a['STATUS_ID'] == 'CONVERTED':
-        status = '6 Venda Realizada'
-    elif a['STATUS_ID'] == 'NEW':
-        status = '1 Início'
-    elif a['STATUS_ID'] == '3':
-        status = '4 Em Negociação'
-    elif a['STATUS_ID'] == '4':
-        status = '2 Fora De Horario'
-    elif a['STATUS_ID'] == '5':
-        status = '3 Em Atendimento'
-    else:
-        status = ''
+    global status
+    dicionario = {'JUNK':'5 Contatos Perdidos', 'CONVERTED':'6 Venda Realizada', 'NEW':'1 Início',
+                  '3':'4 Em Negociação', '4':'2 Fora De Horario', '5':'3 Em Atendimento'}
+    while True:
+        for key, value in dicionario.items():
+            if a['STATUS_ID'] == key:
+                status = value
+                break
+            else:
+                status = ''
+        break
+
+    global fonte
+    fontes = {'20|WHATSAPP':'Whatsapp - Televendas', '21' : 'WhatsApp Cobrança - Serra Talhada',
+            '9':'WhatsApp - Confirmação de Entrega','8':'Instagram - Direct','CALL':'Telefone','37':'Telefone SAC',
+            'EMAIL':'E-Mail','WEB':'Website','ADVERTISING':'Propaganada','PARTNER':'Cliente Existente',
+            'RECOMMENDATION':'Recomendação','TRADE_SHOW':'Feira/Exibição','WEBFORM':'Formulário CRM','CALLBACK':'Callback','RC_GENERATOR':'Sales boost',
+            'STORE':'Loja Online','36|WHATSAPP':'Whatsapp - Televendas Recife','12|WHATSAPP':'WhatsApp - Confirmação de Entrega',
+            '6|FACEBOOK':'Facebook - Facebook - Comentários','OTHER':'Outros','1':'Instagram - Comentário','2':'Facebook - Comentário',
+            '3':'Facebook - Messenger','7':'WhatsApp - SAC','14':'Confirmação de Entrega','38':'E-Commerce',
+            '39':'Campanha - Distac 37 anos','40':'Cliente Distac'}
+    while True:
+        for key, value in fontes.items():
+            if a['SOURCE_ID'] == key:
+                fonte = value
+                break
+            else:
+                fonte = ''
+        break
+
+    global cidade
+    cidades = {'832':'Caruaru', '834':'Maceió','836':'Recife','838':'Serra Talhada'}
+    while True:
+        for key, value in cidades.items():
+            if a['UF_CRM_1585530790'] == key:
+                cidade = value
+                break
+            else:
+                cidade = ''
+        break
+
+    global forma
+    formas = {'888':'Link de Pagamento', '890':'Na loja'}
+    while True:
+        for key, value in formas.items():
+            if a['UF_CRM_1589554873'] == key:
+                forma = value
+                break
+            else:
+                forma = ''
+        break
+
+    global motivo_i
+    motivos_i = {'946':'Informações de lojas','948':'Pós venda','950':'Conferir estoque da loja',
+             '952':'Negociação de venda','954': 'Orçamento'}
+    while True:
+        for key, value in motivos_i.items():
+            if a['UF_CRM_1590574186777'] == key:
+                motivo_i = value
+                break
+            else:
+                motivo_i = ''
+        break
+
+    global motivo_n_v
+    motivos_n_v = {'956':'Comprou na concorrência', '958':'Não comercializamos', '960':'Não respondeu',
+                '962':'Comprou na loja', '964':'Desistiu da compra', '1006':'Atendimento a cliente',
+                '1032':'Não temos estoque'}
+    while True:
+        for key, value in motivos_n_v.items():
+            if a['UF_CRM_1590574245657'] == key:
+                motivo_n_v = value
+                break
+            else:
+                motivo_n_v = ''
+        break
+
+    global estado
+    estados = {'1144':'AC', '1146':'AL','1148':'AM','1150':'BA', '1152':'CE', '1154':'DF', '1156':'ES',
+               '1158':'GO', '1160':'MA','1162':'MT', '1164':'MS', '1166':'MG', '1168':'PA', '1170':'PB',
+               '1172':'PR', '1174':'PE','1176':'PI', '1178':'RJ', '1180':'RN', '1182':'RS',
+               '1184':'RO', '1186':'RR','1188':'SC', '1190':'SP', '1192':'SE', '1194':'TO'}
+    while True:
+        for key, value in estados.items():
+            if a['UF_CRM_1598647901'] == key:
+                estado = value
+                break
+            else:
+                estado = ''
+        break
+
     return ("INSERT INTO LEAD (ID, Status, Nome_do_Lead, Primeiro_nome, Segundo_nome, Sobrenome, Criado,"
             "Fonte ,Telefone_de_trabalho, Responsável, Informações_de_status,"
             "Informações_da_fonte, Criado_por, Modificado, Modificado_Por, Nome_da_empresa,"
@@ -48,13 +125,14 @@ def inserir_leads(a):
             "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',"
             "        '{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}','{}', '{}', '{}', '{}')"
             .format(a['ID'], status, a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
-                    a['SOURCE_ID'], telefone,a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
+                    fonte, telefone,a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
                     a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'],a['MODIFY_BY_ID'], a['COMPANY_ID'],
-                    a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'], a['UF_CRM_1590010371392'],
-                    a['UF_CRM_1590574186777'], a['UF_CRM_1590574245657'], CODIGO_PRODUTO, a['UF_CRM_1594415383097'], a['UF_CRM_1598647901']))
+                    a['IS_RETURN_CUSTOMER'], cidade, a['UF_CRM_1589554873'], forma, a['UF_CRM_1590010371392'],
+                    motivo_i, motivo_n_v, CODIGO_PRODUTO, a['UF_CRM_1594415383097'], estado))
 
 
 def atualizar_leads(a):
+
     print(f"A ID:{a['ID']} foi ATUALIZADA.")
     if not a['UF_CRM_1594415348970']:
         CODIGO_PRODUTO = ''
@@ -62,24 +140,108 @@ def atualizar_leads(a):
         CODIGO_PRODUTO = a['UF_CRM_1594415348970'][0]
     else:
         CODIGO_PRODUTO = ''
+
     if a['HAS_PHONE'] == 'Y':
         telefone = a['PHONE'][0]['VALUE']
     else:
         telefone = ''
-    if a['STATUS_ID'] == 'JUNK':
-        status = '5 Contatos Perdidos'
-    elif a['STATUS_ID'] == 'CONVERTED':
-        status = '6 Venda Realizada'
-    elif a['STATUS_ID'] == 'NEW':
-        status = '1 Início'
-    elif a['STATUS_ID'] == '3':
-        status = '4 Em Negociação'
-    elif a['STATUS_ID'] == '4':
-        status = '2 Fora De Horario'
-    elif a['STATUS_ID'] == '5':
-        status = '3 Em Atendimento'
-    else:
-        status = ''
+
+    global status
+    dicionario = {'JUNK': '5 Contatos Perdidos', 'CONVERTED': '6 Venda Realizada', 'NEW': '1 Início',
+                  '3': '4 Em Negociação', '4': '2 Fora De Horario', '5': '3 Em Atendimento'}
+    while True:
+        for key, value in dicionario.items():
+            if a['STATUS_ID'] == key:
+                status = value
+                break
+            else:
+                status = ''
+        break
+
+    global fonte
+    fontes = {'20|WHATSAPP': 'Whatsapp - Televendas', '21': 'WhatsApp Cobrança - Serra Talhada',
+              '9': 'WhatsApp - Confirmação de Entrega', '8': 'Instagram - Direct', 'CALL': 'Telefone',
+              '37': 'Telefone SAC',
+              'EMAIL': 'E-Mail', 'WEB': 'Website', 'ADVERTISING': 'Propaganada', 'PARTNER': 'Cliente Existente',
+              'RECOMMENDATION': 'Recomendação', 'TRADE_SHOW': 'Feira/Exibição', 'WEBFORM': 'Formulário CRM',
+              'CALLBACK': 'Callback', 'RC_GENERATOR': 'Sales boost',
+              'STORE': 'Loja Online', '36|WHATSAPP': 'Whatsapp - Televendas Recife',
+              '12|WHATSAPP': 'WhatsApp - Confirmação de Entrega',
+              '6|FACEBOOK': 'Facebook - Facebook - Comentários', 'OTHER': 'Outros', '1': 'Instagram - Comentário',
+              '2': 'Facebook - Comentário',
+              '3': 'Facebook - Messenger', '7': 'WhatsApp - SAC', '14': 'Confirmação de Entrega',
+              '38': 'E-Commerce',
+              '39': 'Campanha - Distac 37 anos', '40': 'Cliente Distac'}
+
+    while True:
+        for key, value in fontes.items():
+            if a['SOURCE_ID'] == key:
+                fonte = value
+                break
+            else:
+                fonte = ''
+        break
+
+    global cidade
+    cidades = {'832': 'Caruaru', '834': 'Maceió', '836': 'Recife', '838': 'Serra Talhada'}
+    while True:
+        for key, value in cidades.items():
+            if a['UF_CRM_1585530790'] == key:
+                cidade = value
+                break
+            else:
+                cidade = ''
+        break
+    global forma
+    formas = {'888':'Link de Pagamento', '890':'Na loja'}
+    while True:
+        for key, value in formas.items():
+            if a['UF_CRM_1589554873'] == key:
+                forma = value
+                break
+            else:
+                forma = ''
+        break
+
+    global motivo_i
+    motivos_i = {'946':'Informações de lojas','948':'Pós venda','950':'Conferir estoque da loja',
+             '952':'Negociação de venda','954': 'Orçamento'}
+    while True:
+        for key, value in motivos_i.items():
+            if a['UF_CRM_1590574186777'] == key:
+                motivo_i = value
+                break
+            else:
+                motivo_i = ''
+        break
+
+    global motivo_n_v
+    motivos_n_v = {'956':'Comprou na concorrência', '958':'Não comercializamos', '960':'Não respondeu',
+                '962':'Comprou na loja', '964':'Desistiu da compra', '1006':'Atendimento a cliente',
+                '1032':'Não temos estoque'}
+    while True:
+        for key, value in motivos_n_v.items():
+            if a['UF_CRM_1590574245657'] == key:
+                motivo_n_v = value
+                break
+            else:
+                motivo_n_v = ''
+        break
+
+    global estado
+    estados = {'1144':'AC', '1146':'AL','1148':'AM','1150':'BA', '1152':'CE', '1154':'DF', '1156':'ES',
+               '1158':'GO', '1160':'MA','1162':'MT', '1164':'MS', '1166':'MG', '1168':'PA', '1170':'PB',
+               '1172':'PR', '1174':'PE','1176':'PI', '1178':'RJ', '1180':'RN', '1182':'RS',
+               '1184':'RO', '1186':'RR','1188':'SC', '1190':'SP', '1192':'SE', '1194':'TO'}
+    while True:
+        for key, value in estados.items():
+            if a['UF_CRM_1598647901'] == key:
+                estado = value
+                break
+            else:
+                estado = ''
+        break
+
     return ("UPDATE LEAD SET Status='{}', Nome_do_lead='{}', Primeiro_nome='{}', Segundo_nome='{}', Sobrenome='{}', Criado='{}',"
             "Fonte='{}',Telefone_de_trabalho='{}', Responsável='{}', Informações_de_status='{}',"
             "Informações_da_fonte='{}', Criado_por='{}', Modificado='{}', Modificado_Por='{}', Nome_da_empresa='{}',"
@@ -87,12 +249,11 @@ def atualizar_leads(a):
             "MOTIVO_DAS_INTERAÇÕES='{}', MOTIVO_NÃO_VENDA='{}', CÓDIGO_DO_PRODUTO='{}', OBSERVAÇÃO_NÃO_VENDA='{}', Estado_UF='{}'"
             "WHERE ID ='{}'"
             .format(status, a['TITLE'], a['NAME'],a['SECOND_NAME'], a['LAST_NAME'],a['DATE_CREATE'],
-                    a['SOURCE_ID'], telefone, a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
+                    fonte, telefone, a['ASSIGNED_BY_ID'],a['STATUS_DESCRIPTION'],
                     a['SOURCE_DESCRIPTION'], a['CREATED_BY_ID'], a['DATE_MODIFY'],a['MODIFY_BY_ID'], a['COMPANY_ID'],
-                    a['IS_RETURN_CUSTOMER'], a['UF_CRM_1585530790'], a['UF_CRM_1589554873'], a['UF_CRM_1589984561981'], a['UF_CRM_1590010371392'],
-                    a['UF_CRM_1590574186777'], a['UF_CRM_1590574245657'], CODIGO_PRODUTO, a['UF_CRM_1594415383097'], a['UF_CRM_1598647901'],
+                    a['IS_RETURN_CUSTOMER'], cidade, a['UF_CRM_1589554873'], forma, a['UF_CRM_1590010371392'],
+                    motivo_i, motivo_n_v, CODIGO_PRODUTO, a['UF_CRM_1594415383097'], estado,
                     a['ID']))
-
 
 
 def inserir_deals(a):
