@@ -1,7 +1,8 @@
 from django.shortcuts import render
 import funcoes
 from django.views.decorators.csrf import csrf_exempt
-from apscheduler.schedulers.background import BackgroundScheduler
+import celery
+
 
 def index(request):
     return render(request, 'index.html')
@@ -160,8 +161,41 @@ def delete_contact(request):
         conexao.close()
         return render(request, 'get.html')
 
-def agendamento(request):
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(funcoes.ajustes(), 'interval', minutes=1440)
-    scheduler.start()
+
+
+def ajustes(request):
+    obj1 = funcoes.consumir_api('https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.status.list')
+    conexao = funcoes.conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
+    cursor = conexao.cursor()
+
+    cursor.execute("DELETE FROM ajustes")
+    cursor.execute("DELETE FROM pipeline")
+
+    x = 0
+    while x < len(obj1['result']):
+        tipo = obj1['result'][x]['ENTITY_ID']
+        original = obj1['result'][x]['STATUS_ID']
+        final = obj1['result'][x]['NAME']
+
+        cursor.execute("INSERT INTO ajustes (tipo, original, final) "
+                       f"VALUES ('{tipo}', '{original}', '{final}')")
+        x+=1
+
+    print("estou atualizando ajustes")
+
+    obj2 = funcoes.consumir_api('https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.dealcategory.list')
+    x = 0
+    while x < len(obj2['result']):
+        id = obj2['result'][x]['ID']
+        nome = obj2['result'][x]['NAME']
+
+        cursor.execute("INSERT INTO pipeline (id, nome) "
+                       f"VALUES ('{id}', '{nome}')")
+
+        x += 1
+    print('estou atualizando ajustes')
+
+    conexao.commit()
+    conexao.close()
+
     return render(request, 'get.html')

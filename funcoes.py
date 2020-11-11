@@ -1324,39 +1324,3 @@ def atualizar_contato(a):
 
 def deletar(tipo):
     return(f"DELETE FROM {tipo}")
-
-
-def ajustes():
-    obj1 = consumir_api('https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.status.list')
-    conexao = conectar('Tupan', 'l1gu3scPT', 'Estmonial!Uhh663913Ty')
-    cursor = conexao.cursor()
-
-    cursor.execute("DELETE FROM ajustes")
-    cursor.execute("DELETE FROM pipeline")
-
-    x = 0
-    while x < len(obj1['result']):
-        tipo = obj1['result'][x]['ENTITY_ID']
-        original = obj1['result'][x]['STATUS_ID']
-        final = obj1['result'][x]['NAME']
-
-        cursor.execute("INSERT INTO ajustes (tipo, original, final) "
-                       f"VALUES ('{tipo}', '{original}', '{final}')")
-        x+=1
-
-    print("estou atualizando ajustes")
-
-    obj2 = consumir_api('https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.dealcategory.list')
-    x = 0
-    while x < len(obj2['result']):
-        id = obj2['result'][x]['ID']
-        nome = obj2['result'][x]['NAME']
-
-        cursor.execute("INSERT INTO pipeline (id, nome) "
-                       f"VALUES ('{id}', '{nome}')")
-
-        x += 1
-
-    print('estou atualizando ajustes')
-    conexao.commit()
-    conexao.close()
