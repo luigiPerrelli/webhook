@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import funcoes
 from django.views.decorators.csrf import csrf_exempt
+from apscheduler.schedulers.background import BackgroundScheduler
 
 def index(request):
     return render(request, 'index.html')
@@ -158,3 +159,9 @@ def delete_contact(request):
         conexao.commit()
         conexao.close()
         return render(request, 'get.html')
+
+def agendamento(request):
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(funcoes.ajustes(), 'interval', minutes=1440)
+    scheduler.start()
+    return render(request, 'get.html')
