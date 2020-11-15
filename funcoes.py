@@ -108,25 +108,26 @@ def inserir_leads(a):
     if len(r['result']):
         responsavel = f"{r['result'][0]['NAME']} {r['result'][0]['LAST_NAME']}"
     else:
-        responsavel = ''
+        responsavel = a['ASSIGNED_BY_ID']
 
     c = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['CREATED_BY_ID']}")
     if len(c['result']) > 0:
         criador = f"{c['result'][0]['NAME']} {c['result'][0]['LAST_NAME']}"
     else:
-        criador = ""
+        criador = a['CREATED_BY_ID']
 
     m = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['MODIFY_BY_ID']}")
     if len(m['result']) > 0:
         modificador = f"{m['result'][0]['NAME']} {m['result'][0]['LAST_NAME']}"
     else:
-        modificador = ""
+        modificador = a['MODIFY_BY_ID']
 
     company = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.company.get?ID={a['COMPANY_ID']}")
-    if len(company['result']) > 0:
+    try:
         empresa = company['result']['TITLE']
-    else:
-        empresa = ''
+    except:
+        empresa = a['COMPANY_ID']
+
     return ("INSERT INTO LEAD (ID, Status, Nome_do_Lead, Primeiro_nome, Segundo_nome, Sobrenome, Criado,"
             "Fonte ,Telefone_de_trabalho, Responsável, Informações_de_status,"
             "Informações_da_fonte, Criado_por, Modificado, Modificado_Por, Nome_da_empresa,"
@@ -236,25 +237,26 @@ def atualizar_leads(a):
     if len(r['result']) > 0:
         responsavel = f"{r['result'][0]['NAME']} {r['result'][0]['LAST_NAME']}"
     else:
-        responsavel = ""
+        responsavel = a['ASSIGNED_BY_ID']
 
     c = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['CREATED_BY_ID']}")
     if len(c['result']) > 0:
         criador = f"{c['result'][0]['NAME']} {c['result'][0]['LAST_NAME']}"
     else:
-        criador = ""
+        criador = a['CREATED_BY_ID']
 
     m = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['MODIFY_BY_ID']}")
     if len(m['result']) > 0:
         modificador = f"{m['result'][0]['NAME']} {m['result'][0]['LAST_NAME']}"
     else:
-        modificador = ""
+        modificador = a['MODIFY_BY_ID']
 
     company = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.company.get?ID={a['COMPANY_ID']}")
-    if len(company['result']) > 0:
+    try:
         empresa = company['result']['TITLE']
-    else:
-        empresa = ''
+    except:
+        empresa = a['COMPANY_ID']
+
     return (
         "UPDATE LEAD SET Status='{}', Nome_do_lead='{}', Primeiro_nome='{}', Segundo_nome='{}', Sobrenome='{}', Criado='{}',"
         "Fonte='{}',Telefone_de_trabalho='{}', Responsável='{}', Informações_de_status='{}',"
@@ -608,31 +610,31 @@ def inserir_deals(a):
     if len(r['result']) > 0:
         responsavel = f"{r['result'][0]['NAME']} {r['result'][0]['LAST_NAME']}"
     else:
-        responsavel = ""
+        responsavel = a['ASSIGNEB_BY_ID']
 
     c = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['CREATED_BY_ID']}")
     if len(c['result']) > 0:
         criador = f"{c['result'][0]['NAME']} {c['result'][0]['LAST_NAME']}"
     else:
-        criador = ""
+        criador = a['CREATED_BY_ID']
 
     m = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['MODIFY_BY_ID']}")
     if len(m['result']) > 0:
         modificador = f"{m['result'][0]['NAME']} {m['result'][0]['LAST_NAME']}"
     else:
-        modificador = ""
+        modificador = a['MODIFY_BY_ID']
 
     company = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.company.get?ID={a['COMPANY_ID']}")
     try:
         empresa = company['result']['TITLE']
     except:
-        empresa = ''
+        empresa = a['COMPANY_ID']
 
     contatos = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.contact.get?ID={a['CONTACT_ID']}")
     try:
         contato = f"{contatos['result']['NAME']} {contatos['result']['LAST_NAME']}"
     except:
-        contato = ''
+        contato = a['CONTACT_ID']
     return ("INSERT INTO DEAL (ID, Pipeline, Negócio_repetido, Fase,"
             "Responsável, Nome_do_negócio, Tipo, Fonte, Empresa, Contato, Fechado,"
             "Criado, Criado_por, Modificado, Modificado_por, Data_de_início, Data_de_fechamento,"
@@ -1006,31 +1008,32 @@ def atualizar_deals(a):
     if len(r['result']) > 0:
         responsavel = f"{r['result'][0]['NAME']} {r['result'][0]['LAST_NAME']}"
     else:
-        responsavel = ""
+        responsavel = a['ASSIGNEB_BY_ID']
 
     c = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['CREATED_BY_ID']}")
     if len(c['result']) > 0:
         criador = f"{c['result'][0]['NAME']} {c['result'][0]['LAST_NAME']}"
     else:
-        criador = ""
+        criador = a['CREATED_BY_ID']
 
     m = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['MODIFY_BY_ID']}")
     if len(m['result']) > 0:
         modificador = f"{m['result'][0]['NAME']} {m['result'][0]['LAST_NAME']}"
     else:
-        modificador = ""
+        modificador = a['MODIFY_BY_ID']
 
     company = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.company.get?ID={a['COMPANY_ID']}")
     try:
         empresa = company['result']['TITLE']
     except:
-        empresa = ''
+        empresa = a['COMPANY_ID']
 
     contatos = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/crm.contact.get?ID={a['CONTACT_ID']}")
     try:
         contato = f"{contatos['result']['NAME']} {contatos['result']['LAST_NAME']}"
     except:
-        contato = ''
+        contato = a['CONTACT_ID']
+
     return (
         "UPDATE DEAL SET Pipeline='{}', Negócio_repetido='{}', Fase='{}',"
         "Responsável='{}', Nome_do_negócio='{}', Tipo='{}', Fonte='{}', Empresa='{}', Contato='{}', Fechado='{}',"
@@ -1163,19 +1166,19 @@ def inserir_contato(a):
     if len(r['result']):
         responsavel = f"{r['result'][0]['NAME']} {r['result'][0]['LAST_NAME']}"
     else:
-        responsavel = ''
+        responsavel = a['ASSIGNED_BY_ID']
 
     c = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['CREATED_BY_ID']}")
     if len(c['result']) > 0:
         criador = f"{c['result'][0]['NAME']} {c['result'][0]['LAST_NAME']}"
     else:
-        criador = ""
+        criador = a['CREATED_BY_ID']
 
     m = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['MODIFY_BY_ID']}")
     if len(m['result']) > 0:
         modificador = f"{m['result'][0]['NAME']} {m['result'][0]['LAST_NAME']}"
     else:
-        modificador = ""
+        modificador = a['MODIFY_BY_ID']
 
     return ("INSERT INTO CONTACT (ID, Nome,Sobrenome,Tipo_de_Contato,Responsável,Telefone_de_trabalho,"
             "Email_de_trabalho,Fonte,Exportar,Criado_por,Criado,Modificado_por,	Modificado,"
@@ -1288,19 +1291,19 @@ def atualizar_contato(a):
     if len(r['result']):
         responsavel = f"{r['result'][0]['NAME']} {r['result'][0]['LAST_NAME']}"
     else:
-        responsavel = ''
+        responsavel = a['ASSIGNED_BY_ID']
 
-    c = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['CREATED_BY_ID']}")
-    if len(c['result']) > 0:
-        criador = f"{c['result'][0]['NAME']} {c['result'][0]['LAST_NAME']}"
-    else:
-        criador = ""
+        c = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['CREATED_BY_ID']}")
+        if len(c['result']) > 0:
+            criador = f"{c['result'][0]['NAME']} {c['result'][0]['LAST_NAME']}"
+        else:
+            criador = a['CREATED_BY_ID']
 
-    m = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['MODIFY_BY_ID']}")
-    if len(m['result']) > 0:
-        modificador = f"{m['result'][0]['NAME']} {m['result'][0]['LAST_NAME']}"
-    else:
-        modificador = ""
+        m = consumir_api(f"https://tupan.bitrix24.com/rest/1/xnyq2k0ybltcum07/user.search?ID={a['MODIFY_BY_ID']}")
+        if len(m['result']) > 0:
+            modificador = f"{m['result'][0]['NAME']} {m['result'][0]['LAST_NAME']}"
+        else:
+            modificador = a['MODIFY_BY_ID']
 
     return (
         "UPDATE CONTACT SET Nome='{}',Sobrenome='{}',Tipo_de_Contato='{}',Responsável='{}',Telefone_de_trabalho='{}',"
